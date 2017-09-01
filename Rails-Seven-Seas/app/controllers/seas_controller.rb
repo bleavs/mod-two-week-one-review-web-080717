@@ -1,5 +1,54 @@
+require 'pry'
 class SeasController < ApplicationController
   #define your controller actions here
+
+  def index
+    @seas = Sea.all
+  end
+
+  def create
+    @sea = Sea.new(sea_params)
+
+    if @sea.save
+      render 'show'
+
+    else
+      render 'new'
+    end
+
+  end
+
+  def new
+
+    @sea = Sea.new
+  end
+
+  def edit
+    @sea = Sea.find(params[:id])
+  end
+
+  def update
+    @sea = Sea.find(params[:id])
+    if @sea.update(sea_params)
+      render "show"
+    else
+      render "edit"
+    end
+
+  end
+
+  def destroy
+    @seas = Sea.all
+   @sea = Sea.find(params[:id])
+   @sea.destroy
+
+  #  render "index"
+  end
+
+  def show
+  @sea = Sea.find(params[:id])
+  end
+
 
 
   private
